@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentTeacherProfile">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:src="@drawable/teacher_male"/>
+        <TextView
+            android:id="@+id/teacher_profile_email"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/curved_background"
+            android:textColor="#FFFFFF"
+            android:text="E-mail"
+            android:textSize="20dp"
+            android:gravity="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="0.4"
+                android:layout_margin="20dp"
+                android:padding="5dp"
+                android:text="Name"
+                android:textSize="20dp"
+                android:textColor="#FFFFFF"
+                android:gravity="center"
+                android:background="@drawable/curved_background"/>
+
+            <TextView
+                android:id="@+id/teacher_profile_name"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="0.6"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:hint="Teacher's Name"
+                android:layout_marginTop="8dp"
+                android:textSize="20dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="0.4"
+                android:layout_margin="20dp"
+                android:padding="5dp"
+                android:text="Institute"
+                android:textSize="20dp"
+                android:textColor="#FFFFFF"
+                android:gravity="center"
+                android:background="@drawable/curved_background"/>
+
+            <TextView
+                android:id="@+id/teacher_profile_institute"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="0.6"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:hint="Teacher's Institute"
+                android:inputType="number"
+                android:layout_marginTop="8dp"
+                android:textSize="20dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
