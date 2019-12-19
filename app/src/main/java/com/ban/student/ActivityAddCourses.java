@@ -1,5 +1,6 @@
 package com.ban.student;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -35,6 +36,10 @@ public class ActivityAddCourses extends AppCompatActivity {
                     finish();
                 }
             });
+        }
+        else if(item.getItemId() == R.id.navigation_device_enrollment){
+            Intent intent = new Intent(getApplicationContext(), ActivityDeviceEnrollment.class);
+            startActivity(intent);
         }
         return true;
     }

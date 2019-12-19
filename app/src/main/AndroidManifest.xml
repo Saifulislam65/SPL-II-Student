@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ban.student">
+
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -10,18 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ActivityDeviceEnrollment"></activity>
         <activity android:name=".ActivityResource" />
         <activity android:name=".ActivityMarks" />
         <activity android:name=".ActivityQRcodeGenerator" />
         <activity android:name=".ActivityAssignment" />
         <activity
             android:name=".ActivityInsideCourses"
-            android:label="@string/title_activity_inside_courses"></activity>
+            android:label="@string/title_activity_inside_courses" />
         <activity
             android:name=".ActivityAddCourses"
             android:label="@string/title_activity_courses" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

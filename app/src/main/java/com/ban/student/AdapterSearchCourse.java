@@ -32,6 +32,14 @@ public class AdapterSearchCourse extends
     public void onBindViewHolder(@NonNull AdapterSearchCourse.ViewHolder viewHolder, final int i) {
         viewHolder.courseName.setText(courses.get(i).getA1_courseName());
         viewHolder.courseCode.setText(courses.get(i).getA2_courseCode());
+        if(i%4 == 0)
+            viewHolder.imageView.setImageResource(R.drawable.course1);
+        else if(i%4 == 1)
+            viewHolder.imageView.setImageResource(R.drawable.course2);
+        else if(i%4 == 2)
+            viewHolder.imageView.setImageResource(R.drawable.course3);
+        else if(i%4 == 3)
+            viewHolder.imageView.setImageResource(R.drawable.course4);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +66,7 @@ public class AdapterSearchCourse extends
             super(itemView);
             courseName = itemView.findViewById(R.id.adapter_course_recyclerview_course_name);
             courseCode = itemView.findViewById(R.id.adapter_course_recyclerview_course_code);
+            imageView = itemView.findViewById(R.id.adapter_course_recyclerview_image);
         }
 
     }

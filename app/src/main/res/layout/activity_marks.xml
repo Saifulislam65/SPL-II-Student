@@ -26,7 +26,7 @@
                 android:gravity="center"
                 android:background="@drawable/curved_background"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/marks_quiz1"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
@@ -54,7 +54,7 @@
                 android:gravity="center"
                 android:background="@drawable/curved_background"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/marks_quiz2"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
@@ -82,7 +82,7 @@
                 android:gravity="center"
                 android:background="@drawable/curved_background"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/marks_quiz3"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
@@ -110,7 +110,7 @@
                 android:gravity="center"
                 android:background="@drawable/curved_background"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/marks_quiz4"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
@@ -138,7 +138,7 @@
                 android:gravity="center"
                 android:background="@drawable/curved_background"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/marks_mid"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
@@ -166,7 +166,7 @@
                 android:gravity="center"
                 android:background="@drawable/curved_background"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/marks_final"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
