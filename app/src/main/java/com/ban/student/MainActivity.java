@@ -1,17 +1,21 @@
 package com.ban.student;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,13 +23,17 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private static final int MY_REQUEST_CODE = 7117;
     List<AuthUI.IdpConfig> providers;
-
+    DatabaseReference studentProfileData;
+    FirebaseUser firebaseUser;
+    ListStudentProfileInfo listStudentProfileInfo;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
@@ -35,18 +43,6 @@ public class MainActivity extends AppCompatActivity {
         //setStatusBarColor();
     }
 
-    /*private void setStatusBarColor() {
-        Window window = activity.getWindow();
-
-        // clear FLAG_TRANSLUCENT_STATUS flag:
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-        // finally change the color
-        window.setStatusBarColor(ContextCompat.getColor(activity,R.color.colorAccent));
-    }*/
 
     private void showSignInOptions() {
         startActivityForResult(
@@ -68,9 +64,31 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK){
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 Toast.makeText(MainActivity.this, " "+user.getEmail(), Toast.LENGTH_SHORT).show();
-                Intent intent= new Intent(getApplicationContext(), ActivityAddCourses.class);
-                startActivity(intent);
-                finish();
+                studentProfileData = FirebaseDatabase.getInstance().getReference("Student/"+user.getUid()+"/PersonalInfo");
+                System.out.println("UID "+user.getUid());
+                studentProfileData.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        try{
+                            listStudentProfileInfo = dataSnapshot.getValue(ListStudentProfileInfo.class);
+                            System.out.println("ID:" +listStudentProfileInfo.getStudentID());
+                            Intent intent= new Intent(getApplicationContext(), ActivityAddCourses.class);
+                            startActivity(intent);
+                            finish();
+                        }catch (Exception e){
+                            System.out.println("in catch");
+                            Intent intent= new Intent(getApplicationContext(), ActivityStudentInfo.class);
+                            startActivity(intent);
+                            Toast.makeText(getApplicationContext(), "Ops...something is wrong!", Toast.LENGTH_LONG);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(getApplicationContext(), "Ops...something is wrong!", Toast.LENGTH_LONG);
+                    }
+                });
+
             }
             else {
                 Toast.makeText(MainActivity.this, " "+response.getError().getMessage(), Toast.LENGTH_SHORT).show();

@@ -23,8 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 public class FragmentStudentProfile extends Fragment {
     DatabaseReference studentProfileData;
     FirebaseUser firebaseUser;
-    TextView textViewEmail;
-    EditText studentName, studentID;
+    TextView textViewEmail, studentID;
+    EditText studentName;
     Button update;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
