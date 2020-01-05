@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "788693166408-aj2cmmolqh6v1p6cnuup8tndt5fm57fo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ban.student",
+            "certificate_hash": "daf2109b3c76253435589b75608df452fb6e4bb7"
+          }
+        },
+        {
           "client_id": "788693166408-63l73jb4qgimfmgad9bekjg1sdptsri7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -52,7 +60,23 @@
       },
       "oauth_client": [
         {
-          "client_id": "788693166408-mr14gdt4h1kh53p9du3vpf9q18m9mtg0.apps.googleusercontent.com",
+          "client_id": "788693166408-9ecta7s69qms0pqvcsjn6erm0s9gojqe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ban.teacher",
+            "certificate_hash": "daf2109b3c76253435589b75608df452fb6e4bb7"
+          }
+        },
+        {
+          "client_id": "788693166408-i16sq7bv1jn0pvq2tra6cd969iigok8g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ban.teacher",
+            "certificate_hash": "99337cde57f2f91ce6f0f4fbfcb5867122201c30"
+          }
+        },
+        {
+          "client_id": "788693166408-q77qc0do6cm7h2kb3302hv3p784rjp60.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.ban.teacher",
