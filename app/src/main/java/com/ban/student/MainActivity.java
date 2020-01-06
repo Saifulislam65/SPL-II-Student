@@ -75,10 +75,12 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent= new Intent(getApplicationContext(), ActivityAddCourses.class);
                             startActivity(intent);
                             finish();
+
                         }catch (Exception e){
                             System.out.println("in catch");
                             Intent intent= new Intent(getApplicationContext(), ActivityStudentInfo.class);
                             startActivity(intent);
+                            finish();
                             Toast.makeText(getApplicationContext(), "Ops...something is wrong!", Toast.LENGTH_LONG);
                         }
                     }
