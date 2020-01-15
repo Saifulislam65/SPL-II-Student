@@ -1,7 +1,7 @@
 package com.ban.student;
 
 public class ListSetStudentnCourseRepo {
-    String studentMail, marks, attendance, studentId, uid;
+    String studentMail,  studentId, uid;
 
     public ListSetStudentnCourseRepo() {
     }

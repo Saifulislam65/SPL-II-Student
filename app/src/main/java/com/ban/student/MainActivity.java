@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_REQUEST_CODE = 7117;
     List<AuthUI.IdpConfig> providers;
     DatabaseReference studentProfileData;
-    FirebaseUser firebaseUser;
     ListStudentProfileInfo listStudentProfileInfo;
 
 

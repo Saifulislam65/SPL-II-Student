@@ -19,7 +19,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.zxing.integration.android.IntentIntegrator;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -27,7 +26,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class FragmentAddCourses extends Fragment {
 
-    private DatabaseReference databaseReference, setInStudentRepo, setInCourseRepo;
+    private DatabaseReference databaseReference, setInStudentRepo, setStudentInAttendance, setStudentInMarks;
     FirebaseUser firebaseUser;
     Button addCourse, addCourse2;
     EditText coursePassword;
@@ -40,6 +39,9 @@ public class FragmentAddCourses extends Fragment {
         View view = inflater.inflate(R.layout.fragment_fragment_add_courses, container, false);
         addCourse = view.findViewById(R.id.add_course);
         coursePassword = view.findViewById(R.id.course_password);
+
+
+
         addCourse2  = view.findViewById(R.id.add_course_2);
         addCourse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +67,8 @@ public class FragmentAddCourses extends Fragment {
             @Override
             public void onClick(View v) {
                 code = coursePassword.getText().toString();
+                setStudentInAttendance = FirebaseDatabase.getInstance().getReference("Course/"+code+"/attendance/"+showUid()+"/");
+                setStudentInMarks = FirebaseDatabase.getInstance().getReference("Course/"+code+"/marks/"+showUid()+"/");
                 createCourseMethod();
                 coursePassword.setText("");
             }
@@ -91,7 +95,7 @@ public class FragmentAddCourses extends Fragment {
     private void createCourseMethod() {
         databaseReference = FirebaseDatabase.getInstance().getReference("Course").child(code);
         setInStudentRepo = FirebaseDatabase.getInstance().getReference("Student/"+showUid()+"/"+"CourseList/"+code+"/");
-        setInCourseRepo = FirebaseDatabase.getInstance().getReference("Course/"+code+"/a5_studentList/"+showUid());
+        //setStudentInAttendance = FirebaseDatabase.getInstance().getReference("Course/"+code+"/a5_studentList/"+showUid());
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -103,7 +107,8 @@ public class FragmentAddCourses extends Fragment {
                     System.out.println(listCourse.getA1_courseName());
                     System.out.println(listCourse.getA2_courseCode());
                     setInStudentRepo.setValue(listCourse);
-                    setInCourseRepo.setValue(setStudentnCourseRepo);
+                    setStudentInAttendance.setValue(setStudentnCourseRepo);
+                    setStudentInMarks.setValue(setStudentnCourseRepo);
                 }catch (NullPointerException e){
                     Toast.makeText(getContext(), "Invalid Course", Toast.LENGTH_SHORT).show();
                 }

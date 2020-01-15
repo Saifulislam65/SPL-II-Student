@@ -37,10 +37,10 @@ public class ActivityAddCourses extends AppCompatActivity {
                 }
             });
         }
-        else if(item.getItemId() == R.id.navigation_device_enrollment){
+       /* else if(item.getItemId() == R.id.navigation_device_enrollment){
             Intent intent = new Intent(getApplicationContext(), ActivityDeviceEnrollment.class);
             startActivity(intent);
-        }
+        }*/
         return true;
     }
 
