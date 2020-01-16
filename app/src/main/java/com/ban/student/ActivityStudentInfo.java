@@ -19,6 +19,7 @@ public class ActivityStudentInfo extends AppCompatActivity {
     TextView textViewEmail;
     EditText studentName, studentID;
     Button update;
+    private DbHandler_StudentProfile  dbHandler_studentProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,8 @@ public class ActivityStudentInfo extends AppCompatActivity {
         studentID = findViewById(R.id.student_profile_id);
         update = findViewById(R.id.student_profile_button_update);
 
+
+        dbHandler_studentProfile = new DbHandler_StudentProfile();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         textViewEmail.setText(firebaseUser.getEmail());
         studentProfileData = FirebaseDatabase.getInstance().getReference("Student/"+firebaseUser.getUid()+"/PersonalInfo");
@@ -45,6 +48,7 @@ public class ActivityStudentInfo extends AppCompatActivity {
                                 studentName.getText().toString(),
                                 studentID.getText().toString()
                         );
+                        dbHandler_studentProfile.setStudentEmailUID(studentID.getText().toString(), firebaseUser.getUid());
                         studentProfileData.setValue(info);
                     }
 

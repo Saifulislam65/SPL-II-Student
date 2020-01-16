@@ -21,11 +21,12 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class FragmentStudentProfile extends Fragment {
-    DatabaseReference studentProfileData;
+    DatabaseReference studentProfileData, studentEmailUID;
     FirebaseUser firebaseUser;
     TextView textViewEmail, studentID;
     EditText studentName;
     Button update;
+    String key;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class FragmentStudentProfile extends Fragment {
         studentID = view.findViewById(R.id.student_profile_id);
         update = view.findViewById(R.id.student_profile_button_update);
 
-        String key = showUserEmail();
+        key = showUserEmailUID();
         studentProfileData = FirebaseDatabase.getInstance().getReference("Student/"+key+"/PersonalInfo");
 
         studentProfileData.addValueEventListener(new ValueEventListener() {
@@ -66,7 +67,6 @@ public class FragmentStudentProfile extends Fragment {
                         studentName.getText().toString(),
                         studentID.getText().toString()
                 );
-
                 studentProfileData.setValue(info);
             }
         });
@@ -75,7 +75,7 @@ public class FragmentStudentProfile extends Fragment {
         return view;
     }
 
-    private String showUserEmail() {
+    private String showUserEmailUID() {
         String  email = "User E-mail";
         String providerId = null;
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -87,4 +87,5 @@ public class FragmentStudentProfile extends Fragment {
         }
         return providerId;
     }
+
 }
