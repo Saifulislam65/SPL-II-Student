@@ -34,7 +34,7 @@ public class ActivityMarks extends AppCompatActivity {
         final String courseKey = ActivityInsideCourses.courseCodeForQrGenerator;
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        getMarks = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/"+firebaseUser.getUid()+"/marks/");
+        getMarks = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/marks/"+firebaseUser.getUid()+"/sheet/");
         getMarks.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

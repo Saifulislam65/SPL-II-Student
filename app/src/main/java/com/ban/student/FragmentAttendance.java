@@ -47,7 +47,7 @@ public class FragmentAttendance extends Fragment {
 
 
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/"+firebaseUser.getUid()+"/attendance/");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/attendance/"+firebaseUser.getUid()+"/sheet/");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -27,6 +27,7 @@ import static android.app.Activity.RESULT_OK;
 public class FragmentAddCourses extends Fragment {
 
     private DatabaseReference databaseReference, setInStudentRepo, setStudentInAttendance, setStudentInMarks;
+    private DbHandlerAddCourse dbHandlerAddCourse;
     FirebaseUser firebaseUser;
     Button addCourse, addCourse2;
     EditText coursePassword;
@@ -40,7 +41,7 @@ public class FragmentAddCourses extends Fragment {
         addCourse = view.findViewById(R.id.add_course);
         coursePassword = view.findViewById(R.id.course_password);
 
-
+        dbHandlerAddCourse = new DbHandlerAddCourse();
 
         addCourse2  = view.findViewById(R.id.add_course_2);
         addCourse.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +70,13 @@ public class FragmentAddCourses extends Fragment {
                 code = coursePassword.getText().toString();
                 setStudentInAttendance = FirebaseDatabase.getInstance().getReference("Course/"+code+"/attendance/"+showUid()+"/");
                 setStudentInMarks = FirebaseDatabase.getInstance().getReference("Course/"+code+"/marks/"+showUid()+"/");
-                createCourseMethod();
+                String mode = dbHandlerAddCourse.getEnrollmentMode(code);
+                if(mode=="1")
+                    createCourseMethod();
+                else  if(mode=="0")
+                    Toast.makeText(getContext(), "Enrollment Closed!", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getContext(), "Mode: "+mode, Toast.LENGTH_SHORT).show();
                 coursePassword.setText("");
             }
         });
