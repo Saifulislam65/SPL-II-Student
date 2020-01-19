@@ -26,8 +26,10 @@ import static android.app.Activity.RESULT_OK;
 
 public class FragmentAddCourses extends Fragment {
 
-    private DatabaseReference databaseReference, setInStudentRepo, setStudentInAttendance, setStudentInMarks;
+    private DatabaseReference databaseReference, setInStudentRepo, setStudentInAttendance, setStudentInMarks, enrollmentMode;
     private DbHandlerAddCourse dbHandlerAddCourse;
+    String mode ="";
+    int status = 0;
     FirebaseUser firebaseUser;
     Button addCourse, addCourse2;
     EditText coursePassword;
@@ -41,7 +43,7 @@ public class FragmentAddCourses extends Fragment {
         addCourse = view.findViewById(R.id.add_course);
         coursePassword = view.findViewById(R.id.course_password);
 
-        dbHandlerAddCourse = new DbHandlerAddCourse();
+        /*dbHandlerAddCourse = new DbHandlerAddCourse();*/
 
         addCourse2  = view.findViewById(R.id.add_course_2);
         addCourse.setOnClickListener(new View.OnClickListener() {
@@ -70,13 +72,38 @@ public class FragmentAddCourses extends Fragment {
                 code = coursePassword.getText().toString();
                 setStudentInAttendance = FirebaseDatabase.getInstance().getReference("Course/"+code+"/attendance/"+showUid()+"/");
                 setStudentInMarks = FirebaseDatabase.getInstance().getReference("Course/"+code+"/marks/"+showUid()+"/");
-                String mode = dbHandlerAddCourse.getEnrollmentMode(code);
-                if(mode=="1")
-                    createCourseMethod();
-                else  if(mode=="0")
-                    Toast.makeText(getContext(), "Enrollment Closed!", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(getContext(), "Mode: "+mode, Toast.LENGTH_SHORT).show();
+                /*String mode = dbHandlerAddCourse.getEnrollmentMode(code);*/
+                enrollmentMode= FirebaseDatabase.getInstance().getReference("Course/"+code+"/a5_courseEnrollmentMode");
+                enrollmentMode.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        try {
+                            status = dataSnapshot.getValue(Integer.class);
+
+                            System.out.println("Inside Mode: "+mode +"/"+ mode.length());
+
+                            if(status == 0){
+                                Toast.makeText(getContext(), "Enrollment Closed!", Toast.LENGTH_SHORT).show();
+                            } else  if(status == 1){
+                                createCourseMethod();
+                            } else{
+                                Toast.makeText(getContext(), "Mode: "+mode, Toast.LENGTH_SHORT).show();
+                            }
+
+                        }catch (Exception e){
+                            mode = "Enrollment Denied!";
+                            Toast.makeText(getContext(), ""+mode, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        mode = "Enrollment Off!";
+                        Toast.makeText(getContext(), ""+mode, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
                 coursePassword.setText("");
             }
         });
@@ -102,7 +129,6 @@ public class FragmentAddCourses extends Fragment {
     private void createCourseMethod() {
         databaseReference = FirebaseDatabase.getInstance().getReference("Course").child(code);
         setInStudentRepo = FirebaseDatabase.getInstance().getReference("Student/"+showUid()+"/"+"CourseList/"+code+"/");
-        //setStudentInAttendance = FirebaseDatabase.getInstance().getReference("Course/"+code+"/a5_studentList/"+showUid());
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -116,10 +142,10 @@ public class FragmentAddCourses extends Fragment {
                     setInStudentRepo.setValue(listCourse);
                     setStudentInAttendance.setValue(setStudentnCourseRepo);
                     setStudentInMarks.setValue(setStudentnCourseRepo);
+                    Toast.makeText(getContext(), "Enrollment Done"+mode, Toast.LENGTH_SHORT).show();
                 }catch (NullPointerException e){
                     Toast.makeText(getContext(), "Invalid Course", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override

@@ -13,10 +13,14 @@ import android.widget.TextView;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ActivityAddCourses extends AppCompatActivity {
 
-    private TextView mTextMessage;
     ViewPager viewPager;
 
     @Override
@@ -37,10 +41,7 @@ public class ActivityAddCourses extends AppCompatActivity {
                 }
             });
         }
-       /* else if(item.getItemId() == R.id.navigation_device_enrollment){
-            Intent intent = new Intent(getApplicationContext(), ActivityDeviceEnrollment.class);
-            startActivity(intent);
-        }*/
+
         return true;
     }
 
@@ -70,7 +71,6 @@ public class ActivityAddCourses extends AppCompatActivity {
         setContentView(R.layout.activity_add_courses);
         viewPager = (ViewPager) findViewById(R.id.add_course_viewPager);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -78,6 +78,7 @@ public class ActivityAddCourses extends AppCompatActivity {
         adapter.AddFragment(new FragmentCourses());
         adapter.AddFragment(new FragmentAddCourses());
         adapter.AddFragment(new FragmentStudentProfile());
+
 
         viewPager.setAdapter(adapter);
 

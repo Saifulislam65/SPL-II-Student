@@ -8,9 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class ActivityInsideCourses extends AppCompatActivity {
     ViewPager viewPager;
-    private TextView mTextMessage;
     String parent, path;
     public static String coursePath, courseCodeForQrGenerator;
 
@@ -39,13 +44,13 @@ public class ActivityInsideCourses extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inside_courses);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         coursePath = "Course/"+getPath();
         courseCodeForQrGenerator = getPath();
-        System.out.println("Parent: "+parent+"\nCOurse path: "+coursePath);
+        System.out.println("Parent: "+parent+"\nCourse path: "+coursePath);
+
 
         viewPager = (ViewPager) findViewById(R.id.inside_course_viewPager);
 
@@ -83,5 +88,6 @@ public class ActivityInsideCourses extends AppCompatActivity {
         path = String.valueOf(FragmentCourses.parentList.get(Integer.parseInt(parent)));
         return path;
     }
+
 
 }
