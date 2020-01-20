@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build()
         );
-        showSignInOptions();
+        showSignInOptions(); 
         //setStatusBarColor();
     }
 
