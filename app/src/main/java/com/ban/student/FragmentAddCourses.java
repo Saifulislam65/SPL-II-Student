@@ -73,35 +73,37 @@ public class FragmentAddCourses extends Fragment {
                 setStudentInAttendance = FirebaseDatabase.getInstance().getReference("Course/"+code+"/attendance/"+showUid()+"/");
                 setStudentInMarks = FirebaseDatabase.getInstance().getReference("Course/"+code+"/marks/"+showUid()+"/");
                 /*String mode = dbHandlerAddCourse.getEnrollmentMode(code);*/
-                enrollmentMode= FirebaseDatabase.getInstance().getReference("Course/"+code+"/a5_courseEnrollmentMode");
-                enrollmentMode.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        try {
-                            status = dataSnapshot.getValue(Integer.class);
+               if(!previouslyEnrolled()){
+                   enrollmentMode= FirebaseDatabase.getInstance().getReference("Course/"+code+"/a5_courseEnrollmentMode");
+                   enrollmentMode.addValueEventListener(new ValueEventListener() {
+                       @Override
+                       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                           try {
+                               status = dataSnapshot.getValue(Integer.class);
 
-                            System.out.println("Inside Mode: "+mode +"/"+ mode.length());
+                               System.out.println("Inside Mode: "+mode +"/"+ mode.length());
 
-                            if(status == 0){
-                                Toast.makeText(getContext(), "Enrollment Closed!", Toast.LENGTH_SHORT).show();
-                            } else  if(status == 1){
-                                createCourseMethod();
-                            } else{
-                                Toast.makeText(getContext(), "Mode: "+mode, Toast.LENGTH_SHORT).show();
-                            }
+                               if(status == 0){
+                                   Toast.makeText(getContext(), "Enrollment Closed!", Toast.LENGTH_SHORT).show();
+                               } else  if(status == 1){
+                                   createCourseMethod();
+                               } else{
+                                   Toast.makeText(getContext(), "Mode: "+mode, Toast.LENGTH_SHORT).show();
+                               }
 
-                        }catch (Exception e){
-                            mode = "Enrollment Denied!";
-                            Toast.makeText(getContext(), ""+mode, Toast.LENGTH_SHORT).show();
-                        }
-                    }
+                           }catch (Exception e){
+                               mode = "Enrollment Denied!";
+                               Toast.makeText(getContext(), ""+mode, Toast.LENGTH_SHORT).show();
+                           }
+                       }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        mode = "Enrollment Off!";
-                        Toast.makeText(getContext(), ""+mode, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                       @Override
+                       public void onCancelled(@NonNull DatabaseError databaseError) {
+                           mode = "Enrollment Off!";
+                           Toast.makeText(getContext(), ""+mode, Toast.LENGTH_SHORT).show();
+                       }
+                   });
+               }
 
 
                 coursePassword.setText("");
@@ -165,6 +167,16 @@ public class FragmentAddCourses extends Fragment {
             System.out.println("Inside Create Course: "+Uid);
         }
         return Uid;
+    }
+
+    private boolean previouslyEnrolled(){
+        int loopSize = FragmentCourses.parentList.size();
+
+        for(int i = 0; i<loopSize; i++){
+            if(FragmentCourses.parentList.get(i).equals(coursePassword.getText().toString()))
+                return true;
+        }
+        return false;
     }
 }
 
