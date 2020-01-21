@@ -103,8 +103,8 @@ public class FragmentAddCourses extends Fragment {
                            Toast.makeText(getContext(), ""+mode, Toast.LENGTH_SHORT).show();
                        }
                    });
-               }
-
+               }else
+                   Toast.makeText(getContext(), "Congrats! You have already enrolled :)", Toast.LENGTH_SHORT).show();
 
                 coursePassword.setText("");
             }
